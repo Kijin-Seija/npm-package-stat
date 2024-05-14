@@ -1,6 +1,6 @@
 {
   "name": "npm-package-stat",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "a command line tool to generate npm package statistics with csv format",
   "keywords": [
     "npm",
