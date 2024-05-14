@@ -1,0 +1,25 @@
+{
+  "name": "npm-package-stat",
+  "version": "0.1.1",
+  "description": "a command line tool to generate npm package statistics with csv format",
+  "keywords": [
+    "npm",
+    "package",
+    "statistics",
+    "csv"
+  ],
+  "bin": {
+    "npm-package-stat": "./cli.js"
+  },
+  "main": "cli.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kijin-Seija",
+  "license": "ISC",
+  "dependencies": {
+    "json2csv": "^6.0.0-alpha.2",
+    "read-installed": "^4.0.3",
+    "yargs": "^17.7.2"
+  }
+}
