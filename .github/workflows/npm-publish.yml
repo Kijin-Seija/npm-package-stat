@@ -1,4 +1,4 @@
-name: Node.js CI
+name: Publish to npm
 
 on:
   push:
@@ -6,11 +6,19 @@ on:
       - main
 
 jobs:
-  build:
+  publish:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '20' # 选择适合你项目的Node.js版本
+        registry-url: 'https://registry.npmjs.org'
+
+    - name: Install dependencies
+      run: npm install
 
     - name: Bump version and tag
       id: tag_version
