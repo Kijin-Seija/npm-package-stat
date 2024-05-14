@@ -30,3 +30,14 @@ npm-package-stat -D -O /path/to/project # Only extract devDependencies and optio
 -O             Only include optionalDependencies        
 -P             Only include peerDependencies            
 ```
+
+### filter with depth
+
+```bash
+npm-package-stat /path/to/project --max-depth=0 # Only extract dependencies with depth = 0
+npm-package-stat /path/to/project --max-depth=1 # Only extract dependencies with depth <= 1
+
+npm-package-stat /path/to/project --depth=1 # Only extract dependencies with depth >= 1
+
+npm-package-stat /path/to/project --depth=1 --max-depth=2 # Only extract dependencies with depth between 1 and 2
+```

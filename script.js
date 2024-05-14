@@ -5,7 +5,7 @@ const fs = require('fs');
 const dependencies = new Set();
 const processed = new Set();
 
-function extractDependencies(data, parent = null, depth = 0, types = ['dependencies']) {
+function extractDependencies(data, parent = null, depth = 0, types = ['dependencies'], maxDepth = -1) {
   types.forEach(type => {
     if (data[type]) {
       for (let key in data[type]) {
@@ -24,7 +24,7 @@ function extractDependencies(data, parent = null, depth = 0, types = ['dependenc
           link: `https://www.npmjs.com/package/${dep.name}`,
           parent: parent ? parent.name : null,
         });
-        extractDependencies(dep, dep, depth + 1, types);
+        if (maxDepth === -1 || depth < maxDepth) extractDependencies(dep, dep, depth + 1, types, maxDepth);
       }
     }
   });
@@ -32,6 +32,8 @@ function extractDependencies(data, parent = null, depth = 0, types = ['dependenc
 
 function analyzeProjects(projectPaths, options, callback) {
   const types = [];
+  const depth = options.depth || 0
+  let maxDepth = -1
   if (options.S) types.push('dependencies');
   if (options.D) types.push('devDependencies');
   if (options.O) types.push('optionalDependencies');
@@ -41,13 +43,18 @@ function analyzeProjects(projectPaths, options, callback) {
     types.push('devDependencies');
   }
 
+  if (options.maxDepth > -1) {
+    maxDepth = options.maxDepth
+  }
+
   Promise.all(projectPaths.map(path => {
     return new Promise((resolve, reject) => {
       readInstalled(path, {dev: options.D}, function (err, data) {
         if (err) {
           reject(err);
         } else {
-          extractDependencies(data, null, 0, types);
+          console.log(maxDepth)
+          extractDependencies(data, null, depth, types, maxDepth);
           resolve();
         }
       });

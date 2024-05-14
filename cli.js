@@ -29,6 +29,16 @@ const argv = yargs(hideBin(process.argv))
     type: 'boolean',
     default: false,
   })
+  .option('depth', {
+    describe: 'start depth to search for dependencies, default is 0',
+    type: 'number',
+    default: 0,
+  })
+  .option('max-depth', {
+    describe: 'Maximum depth to search for dependencies, default is -1 (infinite)',
+    type: 'number',
+    default: -1,
+  })
   .help('h')
   .alias('h', 'help')
   .epilogue('By default, if no options are provided, both dependencies and devDependencies are included.\n' +
