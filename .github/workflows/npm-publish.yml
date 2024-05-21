@@ -28,6 +28,9 @@ jobs:
       id: get_version
       run: echo "VERSION=$(jq -r '.version' package.json)" >> $GITHUB_ENV
 
+    - name: Debug VERSION
+      run: echo "VERSION is ${{ env.VERSION }}"
+
     - name: Check if tag exists
       id: check_tag
       run: |
