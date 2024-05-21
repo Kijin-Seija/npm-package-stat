@@ -14,6 +14,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
 
     - name: Setup Node.js
       uses: actions/setup-node@v2
@@ -31,17 +33,11 @@ jobs:
     - name: Check if tag exists
       id: check_tag
       run: |
-        tag_exists=$(git rev-parse "v${{ env.VERSION }}")
-        echo tag
-        if "$tag_exists" >/dev/null 2>&1; then
+        if git rev-parse "v${{ env.VERSION }}" >/dev/null 2>&1; then
           echo "TAG_EXISTS=true" >> $GITHUB_ENV
         else
           echo "TAG_EXISTS=false" >> $GITHUB_ENV
         fi
-        
-    # 添加调试信息
-    - name: Print TAG_EXISTS
-      run: echo "TAG_EXISTS=${{ env.TAG_EXISTS }}"
 
     - name: Configure Git
       run: |
