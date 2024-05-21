@@ -36,9 +36,10 @@ jobs:
         else
           echo "TAG_EXISTS=false" >> $GITHUB_ENV
         fi
-      # 添加调试信息
-      - name: Print TAG_EXISTS
-        run: echo "TAG_EXISTS=${{ env.TAG_EXISTS }}"
+        
+    # 添加调试信息
+    - name: Print TAG_EXISTS
+      run: echo "TAG_EXISTS=${{ env.TAG_EXISTS }}"
 
     - name: Configure Git
       run: |
